@@ -14,15 +14,17 @@ class Framework {
 class MyComponent {
     constructor() {
         this.selector = 'my-component';
-        this.tempate = '<h1>Hellow{{name}}</h1>';
-        this.selector = { data: 'Wporld' };
+        this.template = '<h1>Hellow{{name}}</h1>';
+        this.data = { name: 'Amal' };
     }
     onInit() {
-        render();
+        this.render();
     }
     render() {
         const element = document.querySelector(this.selector);
-        element.innerHTML = this.template.replace('{{ name }}', this.data.name);
+        if (element) {
+            element.innerHTML = this.template.replace('{{name}}', this.data.name);
+        }
     }
 }
 const app = new Framework(document.getElementById('app'));
