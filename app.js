@@ -14,8 +14,8 @@ class Framework {
 class MyComponent {
     constructor() {
         this.selector = 'my-component';
-        this.template = '<h1>Hellow{{name}}</h1>';
-        this.data = { name: 'Amal' };
+        this.template = '<h1>Hellow{{name}} {{age}}</h1>';
+        this.data = { name: 'Amal', age: 21 };
     }
     onInit() {
         this.render();
@@ -23,7 +23,10 @@ class MyComponent {
     render() {
         const element = document.querySelector(this.selector);
         if (element) {
-            element.innerHTML = this.template.replace('{{name}}', this.data.name);
+            const template = this.template.replace(/\{\{(.*?)\}\}/g, (match, p1) => {
+                return this.data[p1.trim()] || '';
+            });
+            element.innerHTML = template;
         }
     }
 }
